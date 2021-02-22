@@ -1,0 +1,12 @@
+{
+  "app": {
+    "port": 3000,
+    "production": false
+  },
+
+  "kafka": {
+    "producerTopic": "IMO-ADAPTOR-MESSAGING",
+    "clientId": "imo-adaptor",
+    "brokers": ["localhost:19092"]
+  }
+}

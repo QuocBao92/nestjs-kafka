@@ -1,0 +1,13 @@
+.git/
+.githooks/
+coverage/
+dist/
+node_modules/
+test/
+.editconfig
+.eslintrc.js
+.gitignore
+.prettierrc
+jest-setup.ts
+jest.config.js
+.env
