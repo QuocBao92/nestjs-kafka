@@ -5,8 +5,11 @@
   },
 
   "kafka": {
-    "producerTopic": "IMO-ADAPTOR-MESSAGING",
-    "clientId": "imo-adaptor",
-    "brokers": ["localhost:19092"]
+    "producerTopic": "TEST-KAFKA",
+    "consumerTopic": "TEST-KAFKA",
+    "clientId": "test-kafka",
+    "brokers": ["localhost:9092"],
+    "groupId": "test-kafka",
+    "ssl": false
   }
 }

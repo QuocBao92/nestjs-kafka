@@ -4,28 +4,26 @@ import { SASLOptions } from "@nestjs/microservices/external/kafka.interface";
 
 export interface IEnv {
   KAFKA_CONFIG_PATH?: string;
+  KAFKA_CONSUMER_TOPIC?: string;
   KAFKA_PRODUCER_TOPIC?: string;
   KAFKA_CLIENT_ID?: string;
   KAFKA_GROUP_ID?: string;
+  KAFKA_SSL?: string;
   SASL_MACHANISM?: SaslMechanism;
   SASL_USERNAME?: string;
   SASL_PASSWORD?: string;
 }
 
 export interface IConf {
-  consumerTopics?: consumerTopics;
+  consumerTopics?: string;
   producerTopic?: string;
   clientId?: string;
   brokers?: string[];
   groupId?: string;
+  ssl?: boolean;
   saslMechanism?: SaslMechanism;
   saslUsername?: string;
   saslPassword?: string;
-}
-
-export interface consumerTopics {
-  adaptor: string;
-  imo: string;
 }
 
 export enum SaslMechanism {
@@ -40,11 +38,12 @@ export class KafkaConfig implements IConf {
   public static readonly defaultCconfigFile = path.join(__dirname, "../assets/conf/app-config.json");
   public static readonly configName = "kafka";
 
-  public consumerTopics = { adaptor: "IMO-ADAPTOR-MESSAGING", imo: "IMO-MESSAGING" };
-  public producerTopic = "IMO-MESSAGING";
-  public clientId = "imo-asset";
+  public consumerTopics = "TEST-KAFKA";
+  public producerTopic = "TEST-KAFKA";
+  public clientId = "test-kafka";
   public brokers = [];
-  public groupId = "imo-asset";
+  public groupId = "test-kafka";
+  public ssl = true;
   public sasl: SASLOptions = {
     mechanism: SaslMechanism.PLAIN,
     username: "",
