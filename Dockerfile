@@ -16,7 +16,7 @@ USER node
 COPY --from=builder --chown=node /app/package.json /app/package.json
 COPY --from=builder --chown=node /app/dist /app/dist
 COPY --from=builder --chown=node /app/node_modules /app/node_modules
-COPY --from=builder --chown=node /app/docs /app/docs
+# COPY --from=builder --chown=node /app/docs /app/docs
 
 WORKDIR /app
 
