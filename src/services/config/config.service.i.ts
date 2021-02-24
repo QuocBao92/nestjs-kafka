@@ -13,7 +13,6 @@ export interface IMOUrlConfig {
   retailService: {
     companyLocations: string;
     companyLocationsCitRelations: string;
-    locations: string;
   };
   calendarService: {
     calendars: string;
@@ -21,9 +20,5 @@ export interface IMOUrlConfig {
     entryDefault: string;
     holidayCalendars: string;
     calendarTypes: string;
-  };
-  assetService: {
-    assets: string;
-    assetSettingsWithAssetId: string;
   };
 }

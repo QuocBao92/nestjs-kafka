@@ -1,7 +1,5 @@
-import * as _fs from "fs";
+import * as fs from "fs";
 import * as path from "path";
-
-export const fs = { ..._fs };
 
 export interface IEnv {
   APP_CONFIG_PATH?: string;
@@ -25,9 +23,10 @@ export class AppConfig implements IConf {
   public static readonly configName = "app";
 
   public appName = "test-kafka";
-  public version = "0.0.1";
+  public version = "0.0.0";
   public port = 3000;
   public production = true;
+  public frontend = "http://localhost:4200";
 
   constructor(env: IEnv = process.env) {
     let conf: IConf = {};
@@ -44,18 +43,12 @@ export class AppConfig implements IConf {
     this.port = Number(env.SERVER_PORT || conf.port || this.port);
     this.appName = packageJson.name || this.appName;
     this.version = packageJson.version || this.version;
-    this.production = this.isProduction(env, conf);
-  }
+    this.frontend = env.FRONTEND_DOMAIN || conf.frontend || this.frontend;
 
-  public isProduction(e: IEnv, c: IConf): boolean {
-    if (typeof e.PRODUCTION === "string") {
-      return /^true$/i.test(e.PRODUCTION);
+    if (env.PRODUCTION && /^false$/i.test(env.PRODUCTION)) {
+      this.production = false;
+    } else if (conf.production === false) {
+      this.production = false;
     }
-
-    if (typeof c.production === "boolean") {
-      return c.production;
-    }
-
-    return this.production;
   }
 }

@@ -2,20 +2,20 @@ import { Transport } from "@nestjs/microservices/enums";
 
 import { KafkaConfig } from "../../environment/kafka";
 
+import { KafkaConsumerConfig } from "./kafka.consumer.config";
 import { logLevel } from "@nestjs/microservices/external/kafka.interface";
-import { KafkaProducerConfig } from "./kafka.producer.config";
 
-describe(KafkaProducerConfig.name, () => {
-  let config: KafkaProducerConfig;
+describe(KafkaConsumerConfig.name, () => {
+  let config: KafkaConsumerConfig;
 
-  describe(KafkaProducerConfig.prototype.get.name, () => {
+  describe(KafkaConsumerConfig.prototype.get.name, () => {
     it("should get kafka config: production", () => {
       const kafka = new KafkaConfig();
 
-      config = new KafkaProducerConfig(true);
+      config = new KafkaConsumerConfig(true);
 
       const expected = {
-        name: "KAFKA_PRODUCER",
+        name: "KAFKA_CONSUMER",
         transport: Transport.KAFKA,
         options: {
           client: {
@@ -25,10 +25,9 @@ describe(KafkaProducerConfig.name, () => {
             sasl: kafka.sasl,
             logLevel: logLevel.ERROR,
           },
-          producer: {
-            allowAutoTopicCreation: false,
-            idempotent: false,
-          }
+          consumer: {
+            groupId: expect.any(String),
+          },
         }
       };
 
@@ -38,10 +37,10 @@ describe(KafkaProducerConfig.name, () => {
     it("should get kafka config: production", () => {
       const kafka = new KafkaConfig();
 
-      config = new KafkaProducerConfig(false);
+      config = new KafkaConsumerConfig(false);
 
       const expected = {
-        name: "KAFKA_PRODUCER",
+        name: "KAFKA_CONSUMER",
         transport: Transport.KAFKA,
         options: {
           client: {
@@ -51,10 +50,9 @@ describe(KafkaProducerConfig.name, () => {
             sasl: undefined,
             logLevel: logLevel.INFO,
           },
-          producer: {
-            allowAutoTopicCreation: false,
-            idempotent: false,
-          }
+          consumer: {
+            groupId: expect.any(String),
+          },
         }
       };
 

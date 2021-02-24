@@ -3,8 +3,6 @@ import { ConfigService } from "./config.service";
 import { AppConfig } from "../../environment/app";
 import { IMOConfig } from "../../environment/imo";
 import { GConnectConfig } from "../../environment/g-connect";
-import { RedisConfig } from "../../environment/redis";
-import { UserAuthConfig } from "../../environment/user-auth";
 
 describe(ConfigService.name, () => {
   let service: ConfigService;
@@ -40,19 +38,6 @@ describe(ConfigService.name, () => {
     });
   });
 
-  describe(ConfigService.prototype.userAuthConfig.name, () => {
-    it("should return UserAuthConfig", () => {
-      // arrange
-      const expected = new UserAuthConfig();
-
-      // act
-      const actual = service.userAuthConfig();
-
-      // assert
-      expect(actual).toEqual(expected);
-    });
-  });
-
   describe(ConfigService.prototype.imoUrlConfig.name, () => {
     it("should return imoUrlConfig", () => {
       // arrange
@@ -71,7 +56,6 @@ describe(ConfigService.name, () => {
         retailService: {
           companyLocations: `${new IMOConfig().imoRetailBaseUrl}/company-locations`,
           companyLocationsCitRelations: `${new IMOConfig().imoRetailBaseUrl}/company-locations-cit-relations`,
-          locations: `${new IMOConfig().imoRetailBaseUrl}/locations`,
         },
         calendarService: {
           entryDefault: `${new IMOConfig().imoCalendarBaseUrl}/entry-default`,
@@ -80,51 +64,10 @@ describe(ConfigService.name, () => {
           holidayCalendars: `${new IMOConfig().imoCalendarBaseUrl}/holiday-calendars`,
           calendarTypes: `${new IMOConfig().imoCalendarBaseUrl}/calendar-types`,
         },
-        assetService: {
-          assets: `${new IMOConfig().imoAssetBaseUrl}/assets`,
-          assetSettingsWithAssetId: `${new IMOConfig().imoAssetBaseUrl}/asset-settings/{assetId}`,
-        },
       };
 
       // act
       const actual = service.imoUrlConfig();
-
-      // assert
-      expect(actual).toEqual(expected);
-    });
-  });
-
-  describe(ConfigService.prototype.redisConfig.name, () => {
-    it("should return formatted redisConfig", () => {
-      // arrange
-      const redis = new RedisConfig();
-      const expected = {
-        connectionInfo: {
-          host: redis.host,
-          port: redis.port,
-          db: redis.db,
-          username: redis.username,
-          password: redis.password,
-        },
-        sessionInfo: {
-          secret: redis.sessionSecret,
-          resave: false,
-          saveUninitialized: false,
-          proxy: redis.sessionProxy,
-          enableTtl: redis.enableTtl,
-          ttl: redis.ttl,
-          cookie: {
-            domain: redis.sessionDomain,
-            path: "/",
-            httpOnly: redis.sessionHttpOnly,
-            secure: redis.sessionSecure,
-            sameSite: redis.sessionSameSite,
-          },
-        },
-      };
-
-      // act
-      const actual = service.redisConfig();
 
       // assert
       expect(actual).toEqual(expected);

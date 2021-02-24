@@ -1,12 +1,14 @@
 import { Module } from "@nestjs/common";
-import { AppController } from "./app.controller";
-import { AppService } from "./app.service";
-import { TestKafkaModule } from "./controller/test-kafka/test-kafka.module";
-import { KafkaProducerModule } from "./services/kafka-producer";
+
+import { RestControllerModule } from "./controllers/rest-api/rest-controller.module";
+import { KafkaConsumerModule } from "./controllers/kafka/kafka-consumer.module";
+import { AppConfig } from "./environment/app";
+
+import { ForDebugModule } from "./for-debug/for-debug.module";
+
+const DebugModules = new AppConfig().production ? [] : [ForDebugModule];
 
 @Module({
-  imports: [TestKafkaModule, KafkaProducerModule],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [RestControllerModule, KafkaConsumerModule, ...DebugModules],
 })
 export class AppModule {}

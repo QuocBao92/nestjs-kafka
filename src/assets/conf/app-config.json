@@ -1,15 +1,14 @@
 {
   "app": {
+    "production": false,
     "port": 3000,
-    "production": false
+    "frontend": "http://localhost:4200"
   },
-
   "kafka": {
-    "producerTopic": "TEST-KAFKA",
     "consumerTopic": "TEST-KAFKA",
+    "producerTopic": "TEST-KAFKA",
     "clientId": "test-kafka",
     "brokers": ["localhost:9092"],
-    "groupId": "test-kafka",
-    "ssl": false
+    "groupId": "test-kafka"
   }
 }

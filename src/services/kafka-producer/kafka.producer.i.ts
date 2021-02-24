@@ -1,4 +1,4 @@
-import { KafkaConfig } from "../../enviroment/kafka";
+import { KafkaConfig } from "../../environment/kafka";
 
 export const topic = new KafkaConfig().producerTopic;
 

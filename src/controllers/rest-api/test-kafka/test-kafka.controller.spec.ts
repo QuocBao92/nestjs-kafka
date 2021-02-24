@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { TestKafkaController } from './test-kafka.controller';
 
-describe('TestKafkaController', () => {
+describe('TestKafka Controller', () => {
   let controller: TestKafkaController;
 
   beforeEach(async () => {

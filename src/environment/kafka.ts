@@ -8,19 +8,17 @@ export interface IEnv {
   KAFKA_PRODUCER_TOPIC?: string;
   KAFKA_CLIENT_ID?: string;
   KAFKA_GROUP_ID?: string;
-  KAFKA_SSL?: string;
   SASL_MACHANISM?: SaslMechanism;
   SASL_USERNAME?: string;
   SASL_PASSWORD?: string;
 }
 
 export interface IConf {
-  consumerTopics?: string;
+  consumerTopic?: string;
   producerTopic?: string;
   clientId?: string;
   brokers?: string[];
   groupId?: string;
-  ssl?: boolean;
   saslMechanism?: SaslMechanism;
   saslUsername?: string;
   saslPassword?: string;
@@ -38,12 +36,11 @@ export class KafkaConfig implements IConf {
   public static readonly defaultCconfigFile = path.join(__dirname, "../assets/conf/app-config.json");
   public static readonly configName = "kafka";
 
-  public consumerTopics = "TEST-KAFKA";
+  public consumerTopic = "TEST-KAFKA";
   public producerTopic = "TEST-KAFKA";
   public clientId = "test-kafka";
   public brokers = [];
   public groupId = "test-kafka";
-  public ssl = true;
   public sasl: SASLOptions = {
     mechanism: SaslMechanism.PLAIN,
     username: "",
@@ -60,7 +57,7 @@ export class KafkaConfig implements IConf {
       process.exit(-1);
     }
 
-    this.consumerTopics = conf.consumerTopics || this.consumerTopics;
+    this.consumerTopic = env.KAFKA_CONSUMER_TOPIC || conf.consumerTopic || this.consumerTopic;
     this.producerTopic = env.KAFKA_PRODUCER_TOPIC || conf.producerTopic || this.producerTopic;
     this.clientId = env.KAFKA_CLIENT_ID || conf.clientId || this.clientId;
     this.brokers = conf.brokers || this.brokers;
@@ -78,9 +75,6 @@ export class KafkaConfig implements IConf {
         case SaslMechanism.OAUTH_BEARER:
           throw Error("unsupported mechanism for kafka connection");
       }
-    } catch (e) {
-      console.log(e.stack);
-      process.exit(-1);
-    }
+    } catch (error) {}
   }
 }
